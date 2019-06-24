@@ -22,45 +22,51 @@ namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 
         public static int FindDigit(string equation)
         {
+            //Equation : a * b = c
+
             string a = equation.Substring(0, equation.IndexOf('*'));
             string b = equation.Substring(equation.IndexOf('*') + 1, equation.IndexOf('=') - equation.IndexOf('*') - 1);
             string c = equation.Substring(equation.IndexOf('=') + 1);
+
             if (a.Contains('?'))
             {
-                int ans = (int.Parse(c)) / int.Parse(b);
-                if (ans * int.Parse(b) == int.Parse(c))
+                int result = (int.Parse(c)) / int.Parse(b);
+                if (result * int.Parse(b) == int.Parse(c))
                 {
-                    string res = ans.ToString();
-                    if (res.Length == a.Length)
+                    string strResult = result.ToString();
+                    if (strResult.Length == a.Length)
                     {
                         int index = a.IndexOf('?');
-                        return int.Parse(res[index].ToString());
+                        return int.Parse(strResult[index].ToString());
                     }
                 }
             }
             else if (b.Contains('?'))
             {
-                int ans = (int.Parse(c)) / int.Parse(a);
-                if (ans * int.Parse(a) == int.Parse(c))
+
+                int result = (int.Parse(c)) / int.Parse(a);
+                if (result * int.Parse(a) == int.Parse(c))
                 {
-                    string res = ans.ToString();
-                    if (res.Length == b.Length)
+                    string strResult = result.ToString();
+                    if (strResult.Length == b.Length)
                     {
                         int index = b.IndexOf('?');
-                        return int.Parse(res[index].ToString());
+                        return int.Parse(strResult[index].ToString());
+
                     }
                 }
             }
             else
             {
-                int ans = int.Parse(a) * int.Parse(b);
-                if (int.Parse(a) * int.Parse(b) == ans)
+                int result = int.Parse(a) * int.Parse(b);
+                if (int.Parse(a) * int.Parse(b) == result)
                 {
-                    string res = ans.ToString();
-                    if (res.Length == c.Length)
+                    string strResult = result.ToString();
+                    if (strResult.Length == c.Length)
                     {
                         int index = c.IndexOf('?');
-                        return int.Parse(res[index].ToString());
+                        return int.Parse(strResult[index].ToString());
+
                     }
                 }
             }
