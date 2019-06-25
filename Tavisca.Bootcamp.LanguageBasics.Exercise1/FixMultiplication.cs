@@ -1,6 +1,6 @@
 ﻿namespace Tavisca.Bootcamp.LanguageBasics.Exercise1
 {
-    class FixMultiplication
+    public static class FixMultiplication
     {
         public static int FindDigit(string equation)
         {
@@ -10,44 +10,47 @@
             string strValueOfB = equation.Substring(equation.IndexOf('*') + 1, equation.IndexOf('=') - equation.IndexOf('*') - 1);
             string strValueOfC = equation.Substring(equation.IndexOf('=') + 1);
 
-            int intValueOfA,intValueOfB, intValueOfC;
 
             if (strValueOfA.Contains('?'))
             {
-                if(int.TryParse(strValueOfB,out intValueOfB) &&int.TryParse(strValueOfC,out intValueOfC))
-                {
-                    int result = intValueOfC / intValueOfB;
-                    if (result * intValueOfB == intValueOfC)
-                        return Digit(strValueOfA, result);
-                }
+                return GetDigit(strValueOfB, strValueOfC, '/', strValueOfA);
             }
             else if (strValueOfB.Contains('?'))
             {
 
-                if (int.TryParse(strValueOfA, out intValueOfA) && int.TryParse(strValueOfC, out intValueOfC))
-                {
-                    int result = intValueOfC / intValueOfA;
-                    if (result * intValueOfA == intValueOfC)
-                        return Digit(strValueOfB, result);
-                }
+                return GetDigit(strValueOfA, strValueOfC, '/', strValueOfB);
             }
             else
             {
-                if (int.TryParse(strValueOfA, out intValueOfA) && int.TryParse(strValueOfB, out intValueOfB))
+                return GetDigit(strValueOfA, strValueOfB, '*', strValueOfC);
+            }
+        }
+        public static int GetDigit(string operand1,string operand2,char op,string strValue)
+        {
+            int intOperand1, intOperand2;
+            if (int.TryParse(operand1, out intOperand1) && int.TryParse(operand2, out intOperand2))
+            {
+                if(op =='/')
                 {
-                    int result = intValueOfA * intValueOfB;
-                    return Digit(strValueOfC, result);
+                    int result = intOperand2 / intOperand1;
+                    if (result * intOperand1 == intOperand2)
+                        return ExtractDigit(result, strValue);
+                }
+                else
+                {
+                    int result = intOperand2 * intOperand1;
+                    return ExtractDigit(result, strValue);
                 }
             }
             return -1;
         }
-        public static int Digit(string strValue, int result)
+        public static int ExtractDigit(int result,string strValue)
         {
             string strResult = result.ToString();
             if (strResult.Length == strValue.Length)
             {
                 int index = strValue.IndexOf('?');
-                return int.Parse(strResult[index].ToString());
+                return strResult[index] - '0';
             }
             return -1;
         }
